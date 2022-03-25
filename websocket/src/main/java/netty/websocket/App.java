@@ -35,6 +35,7 @@ public class App {
 
 	public static void main(String[] args) throws CertificateException, SSLException {
 		new App().start(8080);
+		System.out.println("start");
 	}
 
 	public void start(int port) throws CertificateException, SSLException {
