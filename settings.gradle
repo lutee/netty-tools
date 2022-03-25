@@ -9,4 +9,4 @@
  */
 
 rootProject.name = 'netty-tools'
-include('list', 'utilities','websocket')
+include('udp','websocket')
