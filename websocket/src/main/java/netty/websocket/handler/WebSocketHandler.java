@@ -1,6 +1,8 @@
 package netty.websocket.handler;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -21,9 +23,9 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
 		String id = ctx.channel().id().asShortText();
 		Channel channel = channels.get(msg.text());
 		if (channel != null) {
-			// doSomething
+
 		}
-		channels.get(id).writeAndFlush(new TextWebSocketFrame(id));
+		channels.get(id).writeAndFlush(new TextWebSocketFrame(id + ":" + msg.text()));
 	}
 
 	@Override
@@ -42,8 +44,11 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
 	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
 		if (evt instanceof HandshakeComplete) {
 			HandshakeComplete event = (HandshakeComplete) evt;
-			System.out.println(event.requestHeaders());
-			ctx.writeAndFlush(new TextWebSocketFrame("at: " + ctx.channel()));
+			List<Entry<String, String>> entries = event.requestHeaders().entries();
+			entries.forEach(e -> {
+				System.out.println(e.getKey() + ":" + e.getValue());
+			});
+			ctx.writeAndFlush(new TextWebSocketFrame("join: " + ctx.channel()));
 		}
 	}
 

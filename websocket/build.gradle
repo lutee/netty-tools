@@ -10,9 +10,11 @@ plugins {
 
 dependencies {
     implementation 'io.netty:netty-all'
+    // https://mvnrepository.com/artifact/org.yaml/snakeyaml
+    // implementation 'org.yaml:snakeyaml:1.30'
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'netty.websocket.App'
+    mainClass = 'netty.websocket.Application'
 }
